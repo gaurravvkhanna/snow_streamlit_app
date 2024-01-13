@@ -50,14 +50,14 @@ if st.button("Get List of Fruits"):
   st.text("Hello from Snowflake:")
   st.dataframe(my_data_rows)
 
-if st.button("Insert a fruit"):
-  second_fruit = st.text_input('Add your fruit of choice to the list')
-  if not second_fruit:
-    st.error("must enter a fruit")
-  else:
-    my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-    my_cur = my_cnx.cursor()
-    my_cur.execute("insert into fruit_load_list values ('" + second_fruit + "')")
-    my_cnx.close()
-    st.text(f"Added {second_fruit}")
-    
+#if st.button("Insert a fruit"):
+second_fruit = st.text_input('Add your fruit of choice to the list')
+if not second_fruit:
+  st.error("must enter a fruit")
+else:
+  my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+  my_cur = my_cnx.cursor()
+  my_cur.execute("insert into fruit_load_list values ('" + second_fruit + "')")
+  my_cnx.close()
+  st.text(f"Added {second_fruit}")
+  
