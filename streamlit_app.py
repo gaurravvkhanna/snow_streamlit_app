@@ -46,6 +46,7 @@ if st.button("Get List of Fruits"):
   my_cur = my_cnx.cursor()
   my_cur.execute("SELECT * from fruit_load_list")
   my_data_rows = my_cur.fetchall()
+  my_cnx.close()
   st.text("Hello from Snowflake:")
   st.dataframe(my_data_rows)
 
@@ -57,4 +58,6 @@ if st.button("Insert a fruit"):
     my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
     my_cur = my_cnx.cursor()
     my_cur.execute(f"insert into fruit_load_list values ('{second_fruit}')")
+    my_cnx.close()
     st.text(f"Added {second_fruit}")
+    
