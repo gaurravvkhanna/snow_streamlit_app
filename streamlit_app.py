@@ -57,7 +57,7 @@ if st.button("Insert a fruit"):
   else:
     my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
     my_cur = my_cnx.cursor()
-    my_cur.execute(f"insert into fruit_load_list values ('{second_fruit}')")
+    my_cur.execute("insert into fruit_load_list values ('" + second_fruit + "')")
     my_cnx.close()
     st.text(f"Added {second_fruit}")
     
