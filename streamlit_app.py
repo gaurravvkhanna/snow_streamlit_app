@@ -42,4 +42,5 @@ my_data_rows = my_cur.fetchall()
 st.text("Hello from Snowflake:")
 st.dataframe(my_data_rows)
 
-st.text_input('Add your fruit of choice to the list')
+second_fruit = st.text_input('Add your fruit of choice to the list')
+my_cur.execute(f"insert into fruit_load_list values ('{second_fruit}')")
