@@ -33,7 +33,7 @@ st.header("Fruityvice Fruit Advice!")
 
 try:
   fruit_choice = st.text_input('What fruit would you like information about?','Kiwi')
-  if not fruityvice_response:
+  if not fruit_choice:
     st.error("you need to enter a fruit")
   else:  
     st.dataframe(get_fruityvice_data(fruit_choice))
