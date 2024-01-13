@@ -40,14 +40,14 @@ try:
 except URLError as e:
   st.error()
 
-st.stop()
-#Get snowflake details
-my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * from fruit_load_list")
-my_data_rows = my_cur.fetchall()
-st.text("Hello from Snowflake:")
-st.dataframe(my_data_rows)
+if st.button("Get List of Fruits"):
+  #Get snowflake details
+  my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+  my_cur = my_cnx.cursor()
+  my_cur.execute("SELECT * from fruit_load_list")
+  my_data_rows = my_cur.fetchall()
+  st.text("Hello from Snowflake:")
+  st.dataframe(my_data_rows)
 
 second_fruit = st.text_input('Add your fruit of choice to the list')
 my_cur.execute(f"insert into fruit_load_list values ('{second_fruit}')")
