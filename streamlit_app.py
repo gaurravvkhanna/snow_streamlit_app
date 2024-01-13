@@ -4,6 +4,12 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
+def get_fruityvice_data(fruit_choice):
+  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+  fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+  return fruityvice_normalized
+
+
 st.title("Welcome to my parents diner")
 
 st.header("Breakfast Favorites")
@@ -25,19 +31,12 @@ st.dataframe(fruits_to_show)
 
 st.header("Fruityvice Fruit Advice!")
 
-fruit_choice = st.text_input('What fruit would you like information about?','Kiwi')
-st.write('The user entered ', fruit_choice)
-
 try:
-  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+  fruit_choice = st.text_input('What fruit would you like information about?','Kiwi')
   if not fruityvice_response:
     st.error("you need to enter a fruit")
   else:  
-    #st.text(fruityvice_response)
-    # normalize the json output s
-    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-    # Display as a table
-    st.dataframe(fruityvice_normalized)
+    st.dataframe(get_fruityvice_data(fruit_choice))
 except URLError as e:
   st.error()
 
